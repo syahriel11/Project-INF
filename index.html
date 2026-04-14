@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Kelas</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>📚 KELAS KULIAH</h2>
+  <button onclick="showPage('dashboard')">🏠 Dashboard</button>
+  <button onclick="showPage('siswa')">👨‍🎓 Data Siswa</button>
+  <button onclick="showPage('nilai')">📊 Nilai</button>
+</div>
+
+<div class="content">
+
+  <div class="header">
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135755.png">
+    <div>
+      <h2>Dashboard Kelas Kuliah</h2>
+      <p>Semangat pejuang SNBP dan SNBT</p>
+    </div>
+  </div>
+
+  <div id="dashboard" class="page" style="display:block">
+    <div class="card">
+      <h2>Selamat Datang 👋</h2>
+      <p>Gunakan menu di samping untuk mengelola data siswa dan nilai.</p>
+    </div>
+  </div>
+
+  <div id="siswa" class="page">
+    <div class="card">
+      <h2>Data Siswa</h2>
+      <input type="text" id="namaSiswa" placeholder="Masukkan nama siswa">
+      <button class="action" onclick="tambahSiswa()">Tambah Siswa</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama</th>
+          </tr>
+        </thead>
+        <tbody id="tabelSiswa"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="nilai" class="page">
+    <div class="card">
+      <h2>Input Nilai</h2>
+      <input type="text" id="namaNilai" placeholder="Nama siswa">
+      <input type="number" id="nilaiAngka" placeholder="Nilai">
+      <button class="action" onclick="tambahNilai()">Tambah Nilai</button>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Nilai</th>
+            <th>Keterangan</th>
+          </tr>
+        </thead>
+        <tbody id="tabelNilai"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+  document.getElementById(id).style.display = 'block';
+}
+
+let no = 1;
+
+function tambahSiswa() {
+  let nama = document.getElementById('namaSiswa').value;
+  if(nama !== '') {
+    let row = `<tr><td>${no++}</td><td>${nama}</td></tr>`;
+    document.getElementById('tabelSiswa').innerHTML += row;
+    document.getElementById('namaSiswa').value = '';
+  }
+}
+
+function tambahNilai() {
+  let nama = document.getElementById('namaNilai').value;
+  let nilai = document.getElementById('nilaiAngka').value;
+
+  if(nama !== '' && nilai !== '') {
+    let ket = nilai >= 75 ? 'Lulus' : 'Tidak Lulus';
+
+    let row = `<tr>
+      <td>${nama}</td>
+      <td>${nilai}</td>
+      <td>${ket}</td>
+    </tr>`;
+
+    document.getElementById('tabelNilai').innerHTML += row;
+
+    document.getElementById('namaNilai').value = '';
+    document.getElementById('nilaiAngka').value = '';
+  }
+}
+</script>
+
+</body>
+</html>
